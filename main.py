@@ -5,7 +5,6 @@ from elasticsearch import Elasticsearch
 
 ES_HOST: str = 'localhost'
 ES_PORT: int = 9200
-VERBOSE: bool = False
 
 
 def inject(es: Elasticsearch, index_name: str, count: int) -> None:
