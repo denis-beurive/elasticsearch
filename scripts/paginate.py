@@ -128,13 +128,13 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # Select page per page, using the basic technique
     # -------------------------------------------------------------------------
-    # custom_query: dict = {
-    #     "range": {
-    #         "key1": {"gte": 0}
-    #     }
-    # }
-    # res = select_all_paginate_basic(es, index, custom_query)
-    # pprint(res)
+    custom_query: dict = {
+        "range": {
+            "key1": {"gte": 0}
+        }
+    }
+    res = select_all_paginate_basic(es, index, custom_query)
+    pprint(res)
 
     # -------------------------------------------------------------------------
     # Select page per page, using the scroll technique
