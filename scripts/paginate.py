@@ -3,6 +3,7 @@
 # See:
 #      https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-from-size.html
 #      https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-scroll.html
+#      https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-search-after.html
 
 from typing import List
 from pprint import pprint
@@ -115,6 +116,47 @@ def select_all_paginate_scroll(es: Elasticsearch, index_name: str, custom_query:
     return result
 
 
+def select_all_paginate_search_after(es: Elasticsearch, index_name: str) -> List[dict]:
+    """
+    Select all records from the database using the "search after" pagination technique.
+
+    See: https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-request-search-after.html
+
+    :param es: the ElasticSearch handler.
+    :param index_name: the name of the index.
+    :return: the list of all records.
+    """
+    custom_query: dict = {
+        "query": {
+            "range": {
+                "key1": {"gte": 0}
+            },
+        },
+        "sort": [
+            {"_id": "asc"}
+        ]
+    }
+    result: List[dict] = []
+    res: dict = es.search(index=index_name, body=custom_query, size=10)
+    if res['_shards']['successful'] < 1:
+        raise Exception("An error occurred while searching for a document (using a custom query)!")
+    if not len(res['hits']['hits']):
+        return []
+    result.extend(f['_source'] for f in res['hits']['hits'])
+
+    last_id = res['hits']['hits'][-1]['_id']
+    while True:
+        custom_query['search_after'] = [last_id]
+        res: dict = es.search(index=index_name, body=custom_query, size=10)
+        if res['_shards']['successful'] < 1:
+            raise Exception("An error occurred while searching for a document (using a custom query)!")
+        if not len(res['hits']['hits']):
+            break
+        result.extend(f['_source'] for f in res['hits']['hits'])
+        last_id = res['hits']['hits'][-1]['_id']
+    return result
+
+
 def main() -> None:
     count: int = 100
     index: str = 'example'
@@ -147,5 +189,10 @@ def main() -> None:
     res = select_all_paginate_scroll(es, index, custom_query)
     pprint(res)
 
+    # -------------------------------------------------------------------------
+    # Select page per page, using the search after technique
+    # -------------------------------------------------------------------------
+    select_all_paginate_search_after(es, index)
+    pprint(res)
 
 main()
