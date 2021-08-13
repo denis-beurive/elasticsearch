@@ -1,5 +1,4 @@
-import json
-from typing import List, Dict, Any
+from typing import List
 from pprint import pprint
 from elasticsearch import Elasticsearch
 

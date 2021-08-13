@@ -9,12 +9,18 @@ It covers the basic usage from the command line, and the Python package [elastic
 * [Delete a document](doc/delete.md)
 * [Delete an index](doc/delete-index.md)
 * [Select all documents from an index](doc/select-all-from-index.md)
-* [Example script in Python](main.py)
+* Example scripts in Python:
+    * [Basic use cases](scripts/basic.py)
+    * [Pagination tachniques](scripts/paginate.py)
+* [Using wget instead of curl](doc/wget.md)
+* [Tips and tricks](doc/tips-and-tricks.md)
 
-How to run the script:
+How to run the scripts:
 
 ```shell
 pipenv shell
 pipenv install
-python main.py
+cd scripts
 ```
+
+Then you can execute the scripts: `python <name of the script>`.
