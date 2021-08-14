@@ -49,7 +49,7 @@ An index is made of a set of shards:
     index = { shards }
 
 * The shards are distributed over the nodes.
-* The is 2 kinds of shards: primary shards and replicas.
+* There are 2 kinds of shards: primary shards and replicas.
 
 ![](doc/images/cluster.png)
 
