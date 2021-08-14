@@ -24,3 +24,33 @@ cd scripts
 ```
 
 Then you can execute the scripts: `python <name of the script>`.
+
+# Analogy between RDBMs and ElasticSearch
+
+| RDBMs    | ElasticSearch | 
+|----------|---------------|
+| database | index         |
+| table    | type          |
+| column   | document      |
+| row      | property      |
+
+> An index is a _logical_ view of data. Physically speaking, data is stored within _shards_.
+>
+> Searching for documents: `http://localhost:9200/[index]/[type]/[operation]`
+  
+# Cluster, nodes, index and shards
+
+A cluster is made of a set of nodes:
+
+    cluster = { nodes } 
+
+An index is made of a set of shards:
+
+    index = { shards }
+
+* The shards are distributed over the nodes.
+* The is 2 kinds of shards: primary shards and replicas.
+
+![](doc/images/cluster.png)
+
+
