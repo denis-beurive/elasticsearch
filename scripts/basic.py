@@ -185,9 +185,7 @@ def get_all_fields_from_index(es: Elasticsearch, index_name: str) -> List[List[s
         return result
 
     mapping: dict = es.indices.get_mapping(index=index_name)
-    pprint(mapping)
     properties: dict = mapping[index_name]['mappings']['properties']
-    pprint(properties)
     all_fields_dict = walk_properties(properties)
     return flatter(all_fields_dict)
 
