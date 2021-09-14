@@ -14,6 +14,7 @@ It covers the basic usage from the command line, and the Python package [elastic
     * [Pagination tachniques](scripts/paginate.py): this script illustrates the 3 following techniques: "_from-to_", "_scrolling_" and "_search after_". 
 * [Using wget instead of curl](doc/wget.md)
 * [Tips and tricks](doc/tips-and-tricks.md)
+* [SQL equivalent](doc/sql-equivalent.md)
 
 How to run the scripts:
 
