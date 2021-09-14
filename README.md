@@ -53,4 +53,3 @@ An index is made of a set of shards:
 
 ![](doc/images/cluster.png)
 
-
